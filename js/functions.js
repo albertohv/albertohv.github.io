@@ -81,21 +81,68 @@ function showData(data){
 	placeToShow = document.getElementById('data');
 	
 	placeToShow.innerHTML = `<h3>Encontrados ${eQuakes.length} terremotos</h3>`
-	    
-	eQuakes.forEach( function(eQuakeInEquakes){
+    
+    console.log(eQuakes);
+    
+    if ( eQuakes.length >= 10 ){
         
-        let eqDate = eQuakeInEquakes.properties.time
+        let thisPageVal = 9 * 3;
+        
+        let numOfPages = Math.round( ( eQuakes.length / 10 ) + 0.4 ); //sumamos 0,4 para que en 2,1-2,4 suba a 2,5-2,9 y redondee a 3 (en 2,0 suba a 2,4 y redondea a 2)
+        
+        console.log( numOfPages );
+        
+        placeToShow.innerHTML += `<p>${ numOfPages } páginas con resultados</p>`
+        
+        placeToShow.innerHTML += `<p>Mostrando del ${ thisPageVal - 8 } al ${ thisPageVal + 1 }</p>`
+        
+        for ( let i = ( thisPageVal - 9 ) ; i <= thisPageVal ; i++ ){
+            
+            
+            
+            let eqDate = eQuakes[i].properties.time
+
+            placeToShow.innerHTML += `
+            <ul><li>Fecha: ${ convertDate(eqDate) }</li>
+            <li>Localización: ${eQuakes[i].properties.place}</li>
+            <li>Magnitud: ${eQuakes[i].properties.mag}</li>
+            <li>MMI: ${eQuakes[i].properties.mmi}</li>
+            <li><a href="${eQuakes[i].properties.url}">Link al evento</li></ul>
+            ` 
+        }  
+    
+    }
+    
+//    for ( i = 0; i <= 9; i++ ){
+//
+//        let eqDate = eQuakes[i].properties.time
+//
+//        placeToShow.innerHTML += `
+//        <ul><li>Fecha: ${ convertDate(eqDate) }</li>
+//        <li>Localización: ${eQuakes[i].properties.place}</li>
+//        <li>Magnitud: ${eQuakes[i].properties.mag}</li>
+//        <li>MMI: ${eQuakes[i].properties.mmi}</li>
+//        <li><a href="${eQuakes[i].properties.url}">Link al evento</li></ul>
+//        ` 
+//    }
+}
+    
+    
+    //SIN PAGINACIÓN
+    
+	/*eQuakes.forEach( function(eQuakeinEQuakes){
+        
+        let eqDate = eQuakeinEQuakes.properties.time
                 
 		placeToShow.innerHTML += `
 		<ul><li>Fecha: ${ convertDate(eqDate) }</li>
-		<li>Localización: ${eQuakeInEquakes.properties.place}</li>
-		<li>Magnitud: ${eQuakeInEquakes.properties.mag}</li>
-		<li>MMI: ${eQuakeInEquakes.properties.mmi}</li>
-		<li><a href="${eQuakeInEquakes.properties.url}">Link al evento</li></ul>
+		<li>Localización: ${eQuakeinEQuakes.properties.place}</li>
+		<li>Magnitud: ${eQuakeinEQuakes.properties.mag}</li>
+		<li>MMI: ${eQuakeinEQuakes.properties.mmi}</li>
+		<li><a href="${eQuakeinEQuakes.properties.url}">Link al evento</li></ul>
 		`
-	});
-}
-
+	});*/
+    
 
 
 
